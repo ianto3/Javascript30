@@ -65,11 +65,46 @@
       background: black;
       position: absolute;
       top: 50%;
+      transform-origin: 100%;
+    }
+
+    .second-hand {
+      background: rgba(255, 0, 0, 0.8);
+    }
+
+    .hour-hand {
+      width: 40%;
+      left: 10%;
     }
   </style>
 
   <script>
 
+    const secondHand = document.querySelector(".second-hand");
+    const minuteHand = document.querySelector(".min-hand");
+    const hourHand = document.querySelector(".hour-hand");
+
+    const intervalTime = setInterval(() => {
+      const time = new Date();
+
+      const seconds = time.getSeconds();
+      const minutes = time.getMinutes();
+      const hour = time.getHours();
+
+      const DEGREES = 360;
+      // 12th hour position starts at a 90deg position, we will need this offset to fix hand positioning.
+      const POSITIONFIX = 90;
+
+      const secondsHandPos = DEGREES / 60 * seconds + POSITIONFIX;
+      secondHand.style.transform = `rotate(${secondsHandPos}deg)`;
+
+      const minutesHandPos = DEGREES / 60 * minutes + POSITIONFIX;
+      minuteHand.style.transform = `rotate(${minutesHandPos}deg)`;
+
+      const hourHandPos = DEGREES / 12 * hour + POSITIONFIX;
+      hourHand.style.transform = `rotate(${hourHandPos}deg)`;
+
+    }, 1000);
 
   </script>
 </body>
