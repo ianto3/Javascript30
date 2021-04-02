@@ -93,6 +93,7 @@
       font-size: 2em;
     }
 
+    /* Make text dissappear on the vertical axis while not focused (without open class)*/
     .panel p:nth-child(1) {
       transform: translateY(-100%);
     }
@@ -101,6 +102,7 @@
       font-size: 4em;
     }
 
+    /* Make text dissappear on the vertical axis while not focused (without open class)*/
     .panel p:nth-child(3) {
       transform: translateY(100%);
     }
@@ -111,6 +113,7 @@
       transition: all;
     }
 
+    /* Return text to it's visible position when focused (adding open class) */
     .panel.open p:nth-child(1) {
       transform: translateY(0);
     }
