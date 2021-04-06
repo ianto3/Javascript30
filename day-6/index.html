@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Type Ahead 👀</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
   <form class="search-form">
@@ -14,9 +16,80 @@
       <li>or a state</li>
     </ul>
   </form>
-<script>
-const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+  <script>
+    const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
 
-</script>
+    const data = [];
+
+    fetch(endpoint)
+      .then(response => response.json())
+      .then(jsonData => data.push(...jsonData))
+      .catch(error => console.error(error))
+
+
+    // Function that obtains an object with city and state names plus populations for every query match
+
+    function obtainMatchingNames(query, database) {
+      const matches = database
+        .filter(element => {
+          const regex = new RegExp(query, "gi")
+          return element.city.match(regex) || element.state.match(regex);
+        })
+        .map(match => { return { city: match.city, state: match.state, population: match.population } })
+      return matches;
+    };
+
+    const query = document.querySelector(".search");
+    // const suggestions = document.querySelector(".suggestions");
+
+    // Function to remove unrelated results from search
+
+    function removeResults() {
+      const suggestions = document.querySelector(".suggestions");
+      while (suggestions.firstChild) {
+        suggestions.removeChild(suggestions.firstChild);
+      }
+    };
+
+    function addResults(searchHits, query) {
+      const suggestions = document.querySelector(".suggestions");
+      searchHits.forEach(hit => {
+        const list = document.createElement("li");
+        const text = `${hit.city}, ${hit.state}, population: ${hit.population}`;
+        list.innerText = text;
+        suggestions.appendChild(list);
+      })
+    };
+
+    function addDefaultSuggestions() {
+      const suggestions = document.querySelector(".suggestions");
+      const defaultText = ["Filter for a city", "or a state"]
+      for (let text of defaultText) {
+        const list = document.createElement("li");
+        list.innerText = text;
+        suggestions.appendChild(list);
+      }
+    }
+
+    // We grab matches every time a key has been pressed in search box
+
+    query.addEventListener("keyup", (ev) => {
+      const query = ev.target.value;
+      // Check that input has letters and not match other characters like " " or "."
+      // else reset default suggestions
+      if (/\w+/.test(query)) {
+        const matches = obtainMatchingNames(query, data);
+        // check if 0 matches, return first li's when app started...
+        removeResults();
+        addResults(matches, query);
+      }
+      else {
+        removeResults();
+        addDefaultSuggestions();
+      }
+    });
+
+  </script>
 </body>
+
 </html>
