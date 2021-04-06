@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Canvas</title>
+</head>
+
+<body>
+  <canvas id="draw" width="800" height="800"></canvas>
+  <script>
+    const canvas = document.querySelector("#draw");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Specifies the color, gradient, or pattern to use for the strokes (outlines) around shapes.
+    ctx.strokeStyle = "BADA55";
+    // Determines the shape used to join two line segments where they meet.
+    ctx.lineJoin = "round";
+    // Determines the shape used to draw the end points of lines.
+    ctx.lineCap = "round";
+    ctx.lineWidth = 25;
+
+    // Flag to know if to draw in the canvas.
+    let isDrawing = false;
+    // variables to store where we end drawing a line.
+    let lastX = 0;
+    let lastY = 0;
+
+    let hue = 0;
+    let direction = true;
+
+
+    function draw(ev) {
+      if (!isDrawing) return; // Stops function from drawing when not clicking mouse down.
+      console.log(ev);
+      ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+      ctx.beginPath();
+      // Start from...
+      ctx.moveTo(lastX, lastY);
+      // Go to...
+      ctx.lineTo(ev.offsetX, ev.offsetY);
+      // stroke() executes the drawing once the former parameters are set.
+      ctx.stroke();
+      // Update where we left off drawing.
+      // lastX = ev.offsetX;
+      // lastY = ev.offsetY;
+      [lastX, lastY] = [ev.offsetX, ev.offsetY];
+      // Increment hue value to keep changing colors.
+      hue++;
+      // The next conditional just resets from 360 degrees to 0 for hue, just to avoid
+      // building up huge numbers.
+      if (hue >= 360) {
+        hue = 0;
+      }
+      // further conditionals control the value of ctx.lineWidth and makes it grow
+      // in size or shrink between those values.
+      if (ctx.lineWidth >= 200 || ctx.lineWidth <= 1) {
+        direction = !direction;
+      }
+      if (direction) {
+        ctx.lineWidth++;
+      } else {
+        ctx.lineWidth--;
+      }
+    };
+
+    canvas.addEventListener("mousemove", draw);
+    canvas.addEventListener("mousedown", (ev) => {
+      isDrawing = true;
+      [lastX, lastY] = [ev.offsetX, ev.offsetY];
+    });
+    canvas.addEventListener("mouseup", () => isDrawing = false);
+    // Just in case mouse goes out of bound, stop drawing too!
+    canvas.addEventListener("mouseout", () => isDrawing = false);
+  </script>
+
+  <style>
+    html,
+    body {
+      margin: 0;
+    }
+  </style>
+
+</body>
+
+</html>
