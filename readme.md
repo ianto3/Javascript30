@@ -12,3 +12,5 @@ Day | Name
 6 | AJAX Type Ahead
 7 | Array Cardio Day 2
 8 | Fun with HTML5 Canvas
+9 | 14 Must Know Dev Tool Tricks
+10 | Hold Shift to Check Multiple Checkboxes
