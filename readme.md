@@ -14,3 +14,4 @@ Day | Name
 8 | Fun with HTML5 Canvas
 9 | 14 Must Know Dev Tool Tricks
 10 | Hold Shift to Check Multiple Checkboxes
+11 | Custom HTML5 Video Player
