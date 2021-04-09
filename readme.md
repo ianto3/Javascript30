@@ -15,3 +15,4 @@ Day | Name
 9 | 14 Must Know Dev Tool Tricks
 10 | Hold Shift to Check Multiple Checkboxes
 11 | Custom HTML5 Video Player
+12 | Key Sequence Detection (Konami Code)

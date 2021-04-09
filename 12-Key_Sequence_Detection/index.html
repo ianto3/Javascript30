@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Key Detection</title>
+  <script type="text/javascript" src="https://www.cornify.com/js/cornify.js"></script>
+</head>
+
+<body>
+  <script>
+    const konamiSequence = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
+    const konamiSequenceLength = konamiSequence.length;
+    // counter to detect if user inputs at least twice ArrowUp before starting the game
+    let startGame = 0;
+    // counter to index position in konami code sequence
+    // starts past first two ArrowUp sequences
+    let konamiIndex = 2;
+
+    function konamiFunction(ev) {
+      if (startGame >= 2) {
+        ev.key === konamiSequence[konamiIndex] ? konamiIndex++ : konamiIndex = 2;
+        if (konamiIndex === konamiSequenceLength) {
+          cornify_add();
+        };
+      } else {
+        ev.key === "ArrowUp" ? startGame++ : startGame = 0;
+      };
+    };
+
+    // suggested solution
+    // const pressed = [];
+    // const secretCode = 'wesbos';
+    // function konamiFunction(e) {
+    //   pressed.push(e.key);
+    //   pressed.splice(-secretCode.length - 1, pressed.length - secretCode.length);
+    //   if (pressed.join('').includes(secretCode)) {
+    //     console.log('DING DING!');
+    //     cornify_add();
+    //   }
+    // }
+
+    window.addEventListener("keyup", konamiFunction);
+
+  </script>
+</body>
+
+</html>
