@@ -17,3 +17,4 @@ Day | Name
 11 | Custom HTML5 Video Player
 12 | Key Sequence Detection (Konami Code)
 13 | Slide In On Scroll
+14 | JavaScript References VS Copying
