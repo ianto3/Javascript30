@@ -19,3 +19,4 @@ Day | Name
 13 | Slide In On Scroll
 14 | JavaScript References VS Copying
 15 | Event Delegation and Local Storage
+16 | CSS Text Shadow Mouse Move Effect

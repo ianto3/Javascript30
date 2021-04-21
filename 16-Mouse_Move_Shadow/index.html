@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Mouse Shadow</title>
+</head>
+
+<body>
+
+  <div class="hero">
+    <h1 contenteditable>🔥WOAH!</h1>
+  </div>
+
+  <style>
+    html {
+      color: black;
+      font-family: sans-serif;
+    }
+
+    body {
+      margin: 0;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: black;
+    }
+
+    h1 {
+      text-shadow: 10px 10px 0 rgba(0, 0, 0, 1);
+      font-size: 100px;
+    }
+  </style>
+
+  <script>
+
+    const hero = document.querySelector(".hero");
+    const text = document.querySelector("h1");
+    const walk = 100 // 100px
+
+    function shadowInteraction(ev) {
+      // const totalHeight = hero.offsetHeight;
+      // const totalWidth = hero.offsetWidth;
+      const { offsetHeight: totalHeight, offsetWidth: totalWidth } = hero
+
+      // text.offsetLeft === 23 && text.offsetTop === 429
+      let xCoord = ev.offsetX;
+      let yCoord = ev.offsetY;
+      if (ev.target === text) {
+        xCoord = text.offsetLeft + ev.offsetX;
+        yCoord = text.offsetTop + ev.offsetY;
+      }
+
+      // Go from -50 to 50 coords.
+      const xWalk = Math.round((xCoord / totalWidth * walk) - (walk / 2));
+      const yWalk = Math.round((yCoord / totalHeight * walk) - (walk / 2));
+
+      // text.style.textShadow = `red ${xWalk}px ${yWalk}px 0`;
+      text.style.textShadow = `rgba(255,0,0,0.8) ${xWalk}px ${yWalk}px 10px, rgba(0,0,255,0.8) ${xWalk * -1}px ${yWalk * -1}px 10px`;
+    }
+
+    hero.addEventListener("mousemove", shadowInteraction)
+
+  </script>
+</body>
+
+</html>
