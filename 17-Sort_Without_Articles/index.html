@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Sort Without Articles</title>
+</head>
+
+<body>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: url("https://source.unsplash.com/nDqA4d5NL0k/2000x2000");
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    #bands {
+      list-style: inside square;
+      font-size: 20px;
+      background: white;
+      width: 500px;
+      margin: auto;
+      padding: 0;
+      box-shadow: 0 0 0 20px rgba(0, 0, 0, 0.05);
+    }
+
+    #bands li {
+      border-bottom: 1px solid #efefef;
+      padding: 20px;
+    }
+
+    #bands li:last-child {
+      border-bottom: 0;
+    }
+
+    a {
+      color: #ffc600;
+      text-decoration: none;
+    }
+  </style>
+
+  <ul id="bands"></ul>
+
+  <script>
+    const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
+    bandDisplay = document.querySelector("#bands");
+
+    // function sortingMethod(a, b) {
+    //   a = removeArticles(a);
+    //   b = removeArticles(b);
+    //   return a > b ? 1 : -1
+    // }
+
+    function removeArticles(str) {
+      return str.replace(/^(a|an|the)\s/i, "");
+    }
+
+    // const orderedBands = bands.sort((a, b) => sortingMethod(a, b));
+
+    // Refactored method
+    const orderedBands = bands.sort((a, b) => removeArticles(a) > removeArticles(b) ? 1 : -1);
+
+    orderedBands.forEach(band => {
+      const bandElement = document.createElement("li");
+      bandElement.innerText = band;
+      bandDisplay.appendChild(bandElement);
+    })
+
+    // Another method
+    // bandDisplay.innerHTML =
+    //   orderedBands
+    //     .map(band => `<li>${band}</li>`)
+    //     .join("") // When passing something to innerHTML that is not string (an array here), it will do .toString() putting commas in between.
+
+  </script>
+
+</body>
+
+</html>
