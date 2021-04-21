@@ -21,3 +21,4 @@ Day | Name
 15 | Event Delegation and Local Storage
 16 | CSS Text Shadow Mouse Move Effect
 17 | Sorting Band Names Without Articles
+18 | Tally String Times with Reduce
